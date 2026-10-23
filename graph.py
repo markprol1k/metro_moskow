@@ -29,7 +29,6 @@ class Graph:
         self._check_station(to_station)
         if to_station in self._adj[from_station]:
             raise EdgeAlreadyExistsError(from_station, to_station)
-        # метро двунаправленное — добавляем ребро в обе стороны
         self._adj[from_station][to_station] = weight
         self._adj[to_station][from_station] = weight
 
