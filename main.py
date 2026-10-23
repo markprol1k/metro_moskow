@@ -10,8 +10,6 @@ METRO_PATH = Path(__file__).parent / "metro.json"
 
 
 def parse_args() -> argparse.Namespace:
-    # --from/--to нужны и без подкоманды, и после неё, поэтому они вынесены
-    # в общий парсер; SUPPRESS не даёт подкоманде затереть уже введённые значения
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument(
         "--from", dest="start", default=argparse.SUPPRESS, help="станция отправления"
