@@ -14,6 +14,12 @@ def parse_args() -> argparse.Namespace:
         description="Кратчайший путь между станциями московского метро"
     )
     parser.add_argument(
+        "command",
+        nargs="?",
+        choices=["path", "time"],
+        help="что вывести: path — маршрут, time — время (по умолчанию оба)",
+    )
+    parser.add_argument(
         "--from", dest="start", required=True, help="станция отправления"
     )
     parser.add_argument("--to", dest="end", required=True, help="станция назначения")
@@ -37,8 +43,10 @@ def main() -> None:
         print(f"Пути от «{args.start}» до «{args.end}» нет")
         sys.exit(1)
 
-    print(f"Время в пути: {time} мин")
-    print("\n".join(path))
+    if args.command in (None, "time"):
+        print(f"Время в пути: {time} мин")
+    if args.command in (None, "path"):
+        print("\n".join(path))
 
 
 if __name__ == "__main__":
