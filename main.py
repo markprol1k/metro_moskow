@@ -6,7 +6,7 @@ from pathlib import Path
 from exceptions import GraphError
 from graph import Graph
 
-DEFAULT_METRO = Path(__file__).parent / "metro.json"
+METRO_PATH = Path(__file__).parent / "metro.json"
 
 
 def parse_args() -> argparse.Namespace:
@@ -23,16 +23,13 @@ def parse_args() -> argparse.Namespace:
         "--from", dest="start", required=True, help="станция отправления"
     )
     parser.add_argument("--to", dest="end", required=True, help="станция назначения")
-    parser.add_argument(
-        "--metro", default=DEFAULT_METRO, help="путь к JSON со схемой метро"
-    )
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
     try:
-        graph = Graph.from_json(args.metro)
+        graph = Graph.from_json(METRO_PATH)
         time = graph.shortest_time(args.start, args.end)
         path = graph.shortest_path(args.start, args.end)
     except GraphError as e:
